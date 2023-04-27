@@ -3,14 +3,15 @@ version: '2'
 services:
 
     node:
-        image: tp1-arquitectura
         build: .
         volumes:
               - ./app:/user/app   
         ports:
             - "3000"
         depends_on:
-            - cache
+            - redis
+        links:
+            - redis            
 
     nginx:
         image: nginx:1.23.4
@@ -53,12 +54,10 @@ services:
             - "/sys:/sys:ro"
             - "/var/lib/docker/:/var/lib/docker:ro"
 
-    cache:
+    redis:
         image: redis:6.2-alpine
-        restart: always
         ports:
             - '6379:6379'
-        command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
         volumes: 
             - cache:/data        
 

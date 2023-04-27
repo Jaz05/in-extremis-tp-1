@@ -3,7 +3,6 @@ Tp 1 del grupo In extremis de la materia Arquitectura de software
 
 ### Instrucciones:
 
-Docker image build . -t "tp1-arquitectura"
 docker-compose up -d
 
 ### Endpoints
