@@ -2,10 +2,10 @@
 Tp 1 del grupo In extremis de la materia Arquitectura de software
 
 ### Instalar:
-npm install -g artillery\
-npm install -g statsd\
-npm install -g artillery-plugin-statsd\
-npm install -g redis
+npm install artillery\
+npm install statsd\
+npm install artillery-plugin-statsd\
+npm install redis
 
 ### Instrucciones:
 
