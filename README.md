@@ -26,5 +26,5 @@ Importar dashboard en /perf/dashboard
 
 ### Tests
 
-./run-scenario.sh ping
+./run-scenario.sh ping\
 ./run-scenario.sh cache
