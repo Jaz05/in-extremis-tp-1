@@ -1,7 +1,7 @@
 config:
   environments:
-    api:
-      target: 'http://localhost:5555/api'
+    local:
+      target: 'http://localhost:3000'
       plugins:
         statsd:
           host: localhost
@@ -21,7 +21,19 @@ config:
     
 
 scenarios:
-  - name: Root (/)
+  - name: Ping
     flow:
       - get:
-          url: '/'
+          url: '/ping'
+  - name: Fact
+    flow:
+      - get:
+          url: '/fact'
+  - name: Space news Cached
+    flow:
+      - get:
+          url: '/space_news_cache'          
+  - name: Metar Cached
+    flow:
+      - get:
+          url: '/metar_cache?station=SAEZ'                   
