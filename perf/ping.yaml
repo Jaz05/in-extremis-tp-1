@@ -24,16 +24,16 @@ scenarios:
   - name: Ping
     flow:
       - get:
-          url: '/ping'
+          url: '/test/ping'
   - name: Fact
     flow:
       - get:
-          url: '/fact'
+          url: '/test/fact'
   - name: Space news
     flow:
       - get:
-          url: '/space_news'          
+          url: '/test/space_news'          
   - name: Metar
     flow:
       - get:
-          url: '/metar?station=SAEZ'                   
+          url: '/test/metar?station=SAEZ'                   

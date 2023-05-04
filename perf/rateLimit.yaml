@@ -24,16 +24,16 @@ scenarios:
   - name: Ping
     flow:
       - get:
-          url: '/test/ping'
+          url: '/rateLimiting/ping'
   - name: Fact
     flow:
       - get:
-          url: '/test/fact'
-  - name: Space news Cached
+          url: '/rateLimiting/fact'
+  - name: Space news
     flow:
       - get:
-          url: '/test/space_news_cache'          
-  - name: Metar Cached
+          url: '/rateLimiting/space_news'          
+  - name: Metar
     flow:
       - get:
-          url: '/test/metar_cache?station=SAEZ'                   
+          url: '/rateLimiting/metar?station=SAEZ'                   
