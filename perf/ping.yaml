@@ -7,7 +7,12 @@ config:
           host: localhost
           port: 8125
           prefix: "artillery-api"
-
+  payload:
+      path: "airports.csv"
+      fields:
+        - "ICAO"
+      loadAll: true
+      name: auth
   pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
@@ -18,7 +23,7 @@ config:
     - name: Plain
       duration: 60
       arrivalRate: 5
-    
+
 
 scenarios:
   - name: Ping
@@ -36,4 +41,7 @@ scenarios:
   - name: Metar
     flow:
       - get:
-          url: '/test/metar?station=SAEZ'                   
+          url: '/test/metar' 
+          json:
+                station: "{{ $loopElement.ICAO }}"    
+          over: auth                                   
