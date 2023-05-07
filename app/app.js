@@ -5,22 +5,26 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const { getCache, setCache } = require("./client/redis_client")
+const {getStartTime,registerResponseTime}  = require("./metric/hotshot_metric")
 
 app.get('/ping', (req, res) => {
   res.send('Up!')
 })
 
 app.get('/space_news', (req, res) => {
-  spaceNewsService.getArticlesTitles(5).then((articlesTitles) => {
+  let startTime = getStartTime();
+  spaceNewsService.getArticlesTitles(5).then((articlesTitles) => {    
     res.send(JSON.stringify(articlesTitles));
   })
+  registerResponseTime(startTime, "endpoint.spacenews");
 })
 
 app.get('/space_news_cache', async (req, res) => {
+  let startTime = getStartTime();
   let cacheKey = "space_news";
   let foundCache = await getCache(cacheKey)
   if (foundCache != null) {
-    await res.send(foundCache);
+    res.send(foundCache);
   } else {
     spaceNewsService.getArticlesTitles(5).then((articlesTitles) => {
       let jsonResponse = JSON.stringify(articlesTitles);
@@ -28,21 +32,27 @@ app.get('/space_news_cache', async (req, res) => {
       res.send(jsonResponse);
     })
   }
+  registerResponseTime(startTime, "endpoint.spacenews");
 })
 
 app.get('/fact', (req, res) => {
+  let startTime = getStartTime();
   uselessFactsService.getRandomFact().then((fact) => {
     res.send(fact);
   })
+  registerResponseTime(startTime, "endpoint.uselessfacts");
 })
 
 app.get('/metar', (req, res) => {
+  let startTime = getStartTime();
   metarService.getReport(req.query.station).then((report) => {
     res.send(JSON.stringify(report));
   })
+  registerResponseTime(startTime, "endpoint.metar");
 })
 
 app.get('/metar_cache', async (req, res) => {
+  let startTime = getStartTime();
   let cacheKey = "metar_" + req.query.station;
   let foundCache = await getCache(cacheKey)
   if (foundCache != null) {    
@@ -54,6 +64,7 @@ app.get('/metar_cache', async (req, res) => {
       res.send(jsonResponse);
     })
   }
+  registerResponseTime(startTime, "endpoint.metar");  
 })
 
 
