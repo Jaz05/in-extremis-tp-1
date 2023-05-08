@@ -2,18 +2,30 @@ config:
   environments:
     local:
       target: 'http://localhost:3000'
+      variables:
+        station:
+          - "SAEZ"
+          - "LEAB"
+          - "KABI"        
+          - "PAFM"
+          - "KABY"
+          - "GCRR"        
+          - "PAAK"
+          - "KAKR"
+          - "PAKH"
+          - "OIAG"
+          - "KALB"
+          - "LEAL"
+          - "KALM"
+          - "KALW"
+          - "KANQ"
+          - "KANW"
+          - "LIPY"
       plugins:
         statsd:
           host: localhost
           port: 8125
           prefix: "artillery-api"
-  payload:
-      path: "airports.csv"
-      fields:
-        - "ICAO"
-      loadAll: true
-      name: auth
-
   pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
@@ -42,7 +54,4 @@ scenarios:
   - name: Metar
     flow:
       - get:
-          url: '/rateLimiting/metar'   
-          json:
-                station: "{{ $loopElement.ICAO }}"    
-          over: auth                        
+          url: '/rateLimiting/metar?station={{ station }}'                              

@@ -8,7 +8,9 @@ const { getCache, setCache } = require("./client/redis_client")
 const {getStartTime,registerResponseTime}  = require("./metric/hotshot_metric")
 
 app.get('/ping', (req, res) => {
+  let startTime = getStartTime();
   res.send('Up!')
+  registerResponseTime(startTime, "endpoint.ping");
 })
 
 app.get('/space_news', (req, res) => {
