@@ -7,6 +7,7 @@
     "fast-xml-parser": "^4.2.0",
     "hot-shots": "^10.0.0",
     "metar-decoder": "^1.0.3",
+    "node-cron": "^3.0.2",
     "redis": "^4.6.5",
     "statsd": "^0.9.0"
   }

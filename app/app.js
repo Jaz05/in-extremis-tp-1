@@ -1,6 +1,7 @@
 const spaceNewsService = require("./service/space_news");
 const uselessFactsService = require("./service/useless_facts");
 const metarService = require("./service/metar");
+const updateSpaceNews = require("./cron/space-news-cron");
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -23,15 +24,12 @@ app.get('/space_news', (req, res) => {
 
 app.get('/space_news_cache', async (req, res) => {
   let startTime = getStartTime();
-  let cacheKey = "space_news";
-  let foundCache = await getCache(cacheKey)
+  let foundCache = await getCache("space_news")
   if (foundCache != null) {
     res.send(foundCache);
   } else {
     spaceNewsService.getArticlesTitles(5).then((articlesTitles) => {
-      let jsonResponse = JSON.stringify(articlesTitles);
-      setCache(cacheKey, jsonResponse);
-      res.send(jsonResponse);
+      res.send(JSON.stringify(articlesTitles));
     })
   }
   registerResponseTime(startTime, "endpoint.spacenews");
@@ -62,7 +60,7 @@ app.get('/metar_cache', async (req, res) => {
   } else {
     metarService.getReport(req.query.station).then((report) => {
       let jsonResponse = JSON.stringify(report);
-      setCache(cacheKey, jsonResponse);
+      setCache(cacheKey, jsonResponse, 300);
       res.send(jsonResponse);
     })
   }

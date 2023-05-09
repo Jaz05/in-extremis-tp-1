@@ -8,8 +8,8 @@ const redisClient = redis.createClient({
 });
 redisClient.connect().catch(console.error);
 
-const setCache = (cacheKey, value) => {
-    redisClient.set(cacheKey,value, redis.print);
+const setCache = (cacheKey, value, ttl) => {
+    redisClient.set(cacheKey,value, redis.print, ttl);
 }
 
 const getCache = async (cacheKey,) => {
