@@ -32,26 +32,26 @@ config:
     - name: Ramp
       duration: 40
       arrivalRate: 20
-      rampTo: 50
+      rampTo: 40
     - name: Plain
       duration: 20
-      arrivalRate: 50
-    
-    
+      arrivalRate: 40
+
+
 scenarios:
   - name: Ping
     flow:
       - get:
-          url: '/rateLimiting/ping'
+          url: '/test/ping'
   - name: Fact
     flow:
       - get:
-          url: '/rateLimiting/fact'
+          url: '/test/fact'
   - name: Space news
     flow:
       - get:
-          url: '/rateLimiting/space_news'   
+          url: '/test/space_news'
   - name: Metar
     flow:
       - get:
-          url: '/rateLimiting/metar?station={{ station }}'                          
+          url: '/test/metar?station={{ station }}'                          
