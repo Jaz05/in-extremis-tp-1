@@ -30,28 +30,28 @@ config:
 
   phases:
     - name: Ramp
-      duration: 30
-      arrivalRate: 1
-      rampTo: 5
+      duration: 40
+      arrivalRate: 20
+      rampTo: 40
     - name: Plain
-      duration: 60
-      arrivalRate: 5
+      duration: 20
+      arrivalRate: 40
 
 
 scenarios:
   - name: Ping
     flow:
       - get:
-          url: '/test/ping'
+          url: '/baseCaseTest/ping'
   - name: Fact
     flow:
       - get:
-          url: '/test/fact'
+          url: '/baseCaseTest/fact'
   - name: Space news
     flow:
       - get:
-          url: '/test/space_news'          
+          url: '/baseCaseTest/space_news'    
   - name: Metar
     flow:
       - get:
-          url: '/test/metar?station={{ station }}'                              
+          url: '/baseCaseTest/metar?station={{ station }}'                        
