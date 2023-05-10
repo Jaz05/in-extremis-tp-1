@@ -1,7 +1,7 @@
 config:
   environments:
     local:
-      target: 'http://localhost:3000'
+      target: 'http://localhost:5000'
       variables:
         station:
           - "SAEZ"
