@@ -30,11 +30,11 @@ config:
 
   phases:
     - name: Ramp
-      duration: 40
+      duration: 90
       arrivalRate: 20
       rampTo: 40
     - name: Plain
-      duration: 20
+      duration: 120
       arrivalRate: 40
 
 
