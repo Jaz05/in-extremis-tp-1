@@ -13,15 +13,21 @@ const getReport = async (stationCode) =>{
     let startTime = getStartTime();
     const response = await axios.get(endpoint);
     registerResponseTime(startTime, "api.metar");
-    if(response.status === 200 && data.response.data.METAR){        
-        return parseResponse(response.data);
+    
+    if(response.status === 200){
+        let parsedData = parser.parse(response.data)
+        if(hasData(parsedData))
+            return {status : 200 , data : decodeResponse(parsedData)};
     }
-    return ERROR_MESSAGE;
+    return { status : 500, data : ERROR_MESSAGE};
 }
 
-const parseResponse = (data) =>{    
-    let parsed = parser.parse(data);   
-    let metar = getMetar(parsed)
+const hasData = (data) => {
+    return data.response.data && data.response.data.METAR;
+}
+
+const decodeResponse = (data) =>{    
+    let metar = getMetar(data)
     let decoded = decode(metar);
     
     return decoded;    

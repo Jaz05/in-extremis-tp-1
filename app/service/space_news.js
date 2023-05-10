@@ -9,9 +9,9 @@ const getArticlesTitles = async (amount) =>{
     const response = await axios.get(endpoints.SPACENEWS_ENDPOINT + TITLES_SUFFIX + "?_limit=" + amount);
     registerResponseTime(startTime, "api.spacenews");
     if(response.status === 200){        
-        return getTitles(response.data);
+        return {status : 200, data : getTitles(response.data)};
     }
-    return [ERROR_MESSAGE];
+    return {status : 500, data : [ERROR_MESSAGE]};
 }
 
 const getTitles = (articles) =>{

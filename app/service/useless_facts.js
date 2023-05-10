@@ -9,9 +9,9 @@ const getRandomFact = async () =>{
     const response = await axios.get(endpoints.USELESS_FACTS_ENDPOINT + RANDOM_FACTS_SUFFIX);
     registerResponseTime(startTime, "api.uselessfacts");
     if(response.status === 200){        
-        return response.data["text"];
+        return {status : 200 , data : response.data["text"]};
     }
-    return ERROR_MESSAGE;
+    return {status : 500, data : ERROR_MESSAGE};
 }
 
 

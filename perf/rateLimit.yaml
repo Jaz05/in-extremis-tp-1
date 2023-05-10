@@ -35,7 +35,7 @@ config:
       rampTo: 50
     - name: Plain
       duration: 20
-      arrivalRate: 50
+      arrivalRate: 40
     
     
 scenarios:
