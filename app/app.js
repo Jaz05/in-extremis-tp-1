@@ -4,7 +4,7 @@ const metarService = require("./service/metar");
 //const updateSpaceNews = require("./cron/space-news-cron");
 const express = require('express');
 const app = express();
-const availablePorts = [3000, 3001, 3002];
+const port = 3000
 const { getCache, setCache } = require("./client/redis_client")
 const {getStartTime,registerResponseTime}  = require("./metric/hotshot_metric")
 
@@ -79,27 +79,6 @@ app.get('/metar_cache', async (req, res) => {
   
 })
 
-
-function startServer(port) {
-  app.listen(port, () => {
-    console.log(`Listening on ${port}`);
-  });
-}
-
-function tryNextPort(ports) {
-  if (ports.length === 0) {
-    console.error('Not available ports.');
-    process.exit(1);
-  }
-
-  const port = ports.shift();
-
-  app.once('error', () => {
-    console.log(`${port} occupied. Trying next port...`);
-    tryNextPort(ports);
-  });
-
-  startServer(port);
-}
-
-tryNextPort(availablePorts);
+app.listen(port, () => {
+  console.log(`Listening on ${port}`);
+});

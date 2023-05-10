@@ -19,4 +19,8 @@ function registerResponseTime(startTime, metricName) {
   client.gauge('response_time.' + metricName, responseTime);
 }
 
-module.exports = {getStartTime, registerResponseTime}
+function registerMetric(metricName, value) {
+  client.gauge(metricName, value);
+}
+
+module.exports = {getStartTime, registerResponseTime, registerMetric}

@@ -4,16 +4,17 @@ services:
 
     node:
         build: .
+        restart: on-failure
         volumes:
               - ./app:/user/app   
         ports:
-            - "3000-3002"
+            - "3000"
         depends_on:
             - redis
             - graphite
         links:
             - redis
-            - graphite
+            - graphite 
         deploy:
             replicas: 3            
 
@@ -57,7 +58,7 @@ services:
             - "/var/run:/var/run:rw"
             - "/sys:/sys:ro"
             - "/var/lib/docker/:/var/lib/docker:ro"
-
+    
     redis:
         image: redis:6.2-alpine
         ports:
